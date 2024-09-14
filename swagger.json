@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Event Management API",
+      "description": "API para gestionar eventos, asistentes y lugares cercanos."
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+      "/events": {
+        "get": {
+          "summary": "Obtiene todos los eventos",
+          "tags": ["Event"],
+          "responses": {
+            "200": {
+              "description": "Lista de eventos",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Event"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crea un nuevo evento",
+          "tags": ["Event"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "event",
+              "description": "Objeto que contiene la información del evento",
+              "schema": {
+                "$ref": "#/definitions/Event"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Evento creado exitosamente"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Event": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  

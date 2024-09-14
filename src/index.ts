@@ -4,6 +4,8 @@ import "reflect-metadata";
 import express from "express";
 import * as dotenv from "dotenv";
 import "reflect-metadata";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
 
 
 
@@ -14,6 +16,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Rutas de la API
 app.get('/', (req, res) => {
@@ -22,4 +25,5 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server on port:  ${port}`);
+  console.log("Swagger docs available at http://localhost:3000/api-docs");
 });
