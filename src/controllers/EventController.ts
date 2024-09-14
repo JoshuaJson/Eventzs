@@ -11,4 +11,14 @@ export class EventController {
     const events = await EventService.getAllEvents();
     return res.json(events);
   }
+  static async update(req: Request, res: Response) {
+    const updatedEvent = await EventService.updateEvent(req.params.id, req.body);
+    return res.json(updatedEvent);
+  }
+
+  static async delete(req: Request, res: Response) {
+    await EventService.deleteEvent(req.params.id);
+    return res.status(204).send();
+  }
+
 }

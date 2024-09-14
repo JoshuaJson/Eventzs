@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class Event {
+export class Attendee {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -9,11 +9,5 @@ export class Event {
   name!: string;
 
   @Column()
-  description!: string;
-
-  @Column()
-  date!: Date;
-
-  @Column()
-  location!: string;
+  email!: string;
 }
