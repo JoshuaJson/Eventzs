@@ -12,7 +12,11 @@ export class EventController {
     return res.json(events);
   }
   static async update(req: Request, res: Response) {
-    const updatedEvent = await EventService.updateEvent(req.params.id, req.body);
+    const eventId = parseInt(req.params.id, 10); // Convertir el ID de string a number
+    if (isNaN(eventId)) {
+      return res.status(400).json({ message: "Invalid event ID" });
+    }
+    const updatedEvent = await EventService.updateEvent(eventId, req.body);
     return res.json(updatedEvent);
   }
 

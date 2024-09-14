@@ -1,23 +1,34 @@
 import { getRepository } from "typeorm";
 import { Event } from "../entities/Event";
+import { validateOrReject } from "class-validator";
 
 export class EventService {
+  //create
   static async createEvent(data: Partial<Event>) {
+    const event = new Event();
+    Object.assign(event, data);
+    await validateOrReject(event);
     const eventRepository = getRepository(Event);
-    const newEvent = eventRepository.create(data);
-    await eventRepository.save(newEvent);
-    return newEvent;
+    await eventRepository.save(event);
+    return event;
   }
   //get all
   static async getAllEvents() {
     const eventRepository = getRepository(Event);
     return await eventRepository.find();
   }
-  static async updateEvent(id: string, data: Partial<Event>) {
+  // update 
+  static async updateEvent(id: number, data: Partial<Event>) {
     const eventRepository = getRepository(Event);
-    const eventId = parseInt(id, 10);
-    await eventRepository.update(eventId, data);
-    return await eventRepository.findOneBy({ id: eventId });
+    await eventRepository.update(id, data);
+    const updatedEvent = await eventRepository.findOne({
+      where: { id }
+    });
+    if (updatedEvent) {
+      Object.assign(updatedEvent, data); 
+      await validateOrReject(updatedEvent); 
+    }
+    return updatedEvent;
   }
   // delete 
   static async deleteEvent(id: string) {
