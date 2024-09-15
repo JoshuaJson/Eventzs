@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Event } from './Event';
 @Entity()
 export class Attendee {
   @PrimaryGeneratedColumn()
@@ -12,4 +13,10 @@ export class Attendee {
   @Column()
   @IsEmail({}, { message: "Email must be a valid email address" })
   email!: string;
+
+  @ManyToOne(() => Event, (event) => event.id)
+  event: Event;
+
+  @Column({ type: 'timestamp' })
+  attendanceDate: Date;
 }

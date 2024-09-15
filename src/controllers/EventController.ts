@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import * as xlsx from 'xlsx';
 import { EventService } from "../services/EventService";
 
 export class EventController {

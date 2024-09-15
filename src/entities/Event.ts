@@ -16,9 +16,19 @@ export class Event {
 
   @Column()
   @IsDate({},)
-  date!: Date;
+  startDate: Date;
+
+  @Column()
+  @IsDate({},)
+  endDate: Date;
 
   @Column()
   @IsNotEmpty({ message: "Location is required" })
   location!: string;
+
+  @Column('decimal', { precision: 10, scale: 7 })
+  latitude: number;
+
+  @Column('decimal', { precision: 10, scale: 7 })
+  longitude: number;
 }
