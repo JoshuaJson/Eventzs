@@ -31,7 +31,7 @@ export class EventService {
     return updatedEvent;
   }
   // delete 
-  static async deleteEvent(id: string) {
+  static async deleteEvent(id: number) {
     const eventRepository = getRepository(Event);
     await eventRepository.delete(id);
   }

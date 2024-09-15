@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { IsNotEmpty, IsDateString } from "class-validator";
+import { IsNotEmpty, IsDate } from "class-validator";
 
 @Entity()
 export class Event {
@@ -15,7 +15,7 @@ export class Event {
   description!: string;
 
   @Column()
-  @IsDateString({}, { message: "Date must be a valid date" })
+  @IsDate({},)
   date!: Date;
 
   @Column()

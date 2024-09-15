@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { EventController } from "../controllers/EventController.js";
-import { AttendeeController } from "../controllers/AttendeeController.js";
+import { EventController } from "../controllers/EventController";
+import { AttendeeController } from "../controllers/AttendeeController";
 
 const router = Router();
 

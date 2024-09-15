@@ -21,7 +21,11 @@ export class EventController {
   }
 
   static async delete(req: Request, res: Response) {
-    await EventService.deleteEvent(req.params.id);
+    const eventId = parseInt(req.params.id, 10); // Convertir de string a number
+    if (isNaN(eventId)) {
+      return res.status(400).json({ message: 'Invalid ID format' });
+    }
+    await EventService.deleteEvent(eventId);
     return res.status(204).send();
   }
 
