@@ -1,13 +1,17 @@
 {
     "type": "postgres",
-    "host": "localhost",
+    "host": "postgres",
     "port": 5432,
     "username": "admin",
     "password": "admin",
-    "database": "event_management",
+    "database": "eventzs_management",
     "entities": ["src/entities/*.ts"],
     "synchronize": true,
     "dropSchema": true,
-    "logging": false
+    "logging": false,
+    "migrations": ["src/migrations/**/*.ts"],
+    "cli": {
+      "migrationsDir": "src/migrations"
+    }
   }
   

@@ -9,6 +9,9 @@ COPY . .
 
 RUN npm run build
 
+# Crea el directorio para subir archivos
+RUN mkdir -p /app/excel/uploads
+
 # Verifica el contenido de /app/build antes de ejecutar el archivo
 RUN ls -la /app/build
 

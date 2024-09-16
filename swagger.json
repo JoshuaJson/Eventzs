@@ -1,70 +1,343 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "version": "1.0.0",
-      "title": "Event Management API",
-      "description": "API para gestionar eventos, asistentes y lugares cercanos."
-    },
-    "host": "localhost:3000",
-    "basePath": "/",
-    "schemes": ["http"],
-    "paths": {
-      "/events": {
-        "get": {
-          "summary": "Obtiene todos los eventos",
-          "tags": ["Event"],
-          "responses": {
-            "200": {
-              "description": "Lista de eventos",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Event Management API",
+    "version": "1.0.0",
+    "description": "API para gestionar eventos y asistentes."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "post": {
+        "summary": "Crear un nuevo evento",
+        "operationId": "createEvent",
+        "requestBody": {
+          "description": "Datos del nuevo evento",
+          "required": true,
+          "content": {
+            "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Event"
-                }
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Concert"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "A live concert."
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-09-15T18:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-09-15T21:00:00Z"
+                  },
+                  "location": {
+                    "type": "string",
+                    "example": "New York City"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 40.7128
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "format": "float",
+                    "example": -74.0060
+                  }
+                },
+                "required": ["name", "description", "startDate", "endDate", "location", "latitude", "longitude"]
               }
             }
           }
         },
-        "post": {
-          "summary": "Crea un nuevo evento",
-          "tags": ["Event"],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "event",
-              "description": "Objeto que contiene la información del evento",
-              "schema": {
-                "$ref": "#/definitions/Event"
+        "responses": {
+          "201": {
+            "description": "Evento creado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
               }
             }
-          ],
-          "responses": {
-            "201": {
-              "description": "Evento creado exitosamente"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener todos los eventos",
+        "operationId": "getAllEvents",
+        "responses": {
+          "200": {
+            "description": "Lista de eventos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
             }
           }
         }
       }
     },
-    "definitions": {
+    "/events/{id}": {
+      "put": {
+        "summary": "Actualizar un evento",
+        "operationId": "updateEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos del evento a actualizar",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evento actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de evento inválido"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un evento",
+        "operationId": "deleteEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Evento eliminado"
+          },
+          "400": {
+            "description": "ID de evento inválido"
+          }
+        }
+      }
+    },
+    "/attendees": {
+      "post": {
+        "summary": "Registrar un nuevo asistente",
+        "operationId": "registerAttendee",
+        "requestBody": {
+          "description": "Datos del nuevo asistente",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Jane Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "jane.doe@example.com"
+                  },
+                  "event": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "attendanceDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2024-09-15T18:00:00Z"
+                  }
+                },
+                "required": ["name", "email", "event", "attendanceDate"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Asistente registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Attendee"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener todos los asistentes",
+        "operationId": "getAllAttendees",
+        "responses": {
+          "200": {
+            "description": "Lista de asistentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Attendee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/excel/upload-csv": {
+      "post": {
+        "summary": "Subir eventos desde un archivo Excel",
+        "operationId": "uploadEventsFromExcel",
+        "requestBody": {
+          "description": "Archivo Excel con eventos",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": ["file"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Eventos procesados exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Eventos procesados exitosamente."
+                    },
+                    "processedCount": {
+                      "type": "integer",
+                      "example": 10
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Archivo inválido o formato incorrecto"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
       "Event": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer"
+          },
           "name": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
-          "date": {
+          "startDate": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "location": {
             "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Attendee": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "event": {
+            "type": "integer"
+          },
+          "attendanceDate": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
     }
   }
-  
+}
