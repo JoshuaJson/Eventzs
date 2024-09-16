@@ -1,7 +1,7 @@
 import MapboxClient from '@mapbox/mapbox-sdk';
 import MapboxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
 
-const mapboxToken = 'pk.eyJ1IjoiaWNlc2lldmVycyIsImEiOiJjbTE0ZDZiY3AxbXE3MmlwcTY1YjF4djhtIn0.PLFkBFF_YRtnWkg-nJABHA';
+const mapboxToken = process.env.MAPBOX_TOKEN;
 const client = MapboxClient({ accessToken: mapboxToken });
 const geocoding = MapboxGeocoding(client);
 

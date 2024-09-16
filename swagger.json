@@ -95,6 +95,76 @@
         }
       }
     },
+    "/events/{id}/details": {
+      "get": {
+        "summary": "Obtener detalles del evento",
+        "description": "Devuelve el número de asistentes y los días de asistencia al evento especificado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID del evento",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles del evento con asistentes y días de asistencia.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "numberOfAttendees": {
+                      "type": "integer",
+                      "description": "Número total de asistentes al evento"
+                    },
+                    "dayOfWeek": {
+                      "type": "string",
+                      "description": "El día de la semana en que comienza el evento"
+                    },
+                    "attendanceDetails": {
+                      "type": "array",
+                      "description": "Lista de asistentes con los días en que asistirán",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "Nombre del asistente"
+                          },
+                          "attendanceDay": {
+                            "type": "string",
+                            "description": "Día de la semana en que el asistente asistirá"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "numberOfAttendees": 5,
+                    "dayOfWeek": "Friday",
+                    "attendanceDetails": [
+                      { "name": "John Doe", "attendanceDay": "Sunday" },
+                      { "name": "John Doe primo", "attendanceDay": "Sunday" },
+                      { "name": "Jane Doe", "attendanceDay": "Sunday" },
+                      { "name": "Jane Doe", "attendanceDay": "Sunday" },
+                      { "name": "Jane Doe", "attendanceDay": "Sunday" }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Evento no encontrado"
+          }
+        }
+      }
+    },
     "/events/{id}": {
       "put": {
         "summary": "Actualizar un evento",
