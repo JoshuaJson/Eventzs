@@ -40,6 +40,11 @@ La aplicación y la base de datos están dockerizadas. Puedes encontrar la confi
 - `docker-compose.yml`: Configuración principal.
 - `docker-compose1.yml`: Configuración para ejecutar 5 réplicas del aplicativo.
 
+1. **Ejecutar stack de replicas con docker swarm:**
+     ```bash
+        docker deploy -c docker-compose1.yml "nombre del servicio" 
+    ```
+
 ## Implementación de CI/CD
 
 La integración continua y el despliegue continuo (CI/CD) están configurados en GitHub Actions. Puedes encontrar la configuración en el archivo:
@@ -55,15 +60,17 @@ Para iniciar el proyecto localmente, sigue estos pasos:
 1. **Clona el repositorio:**
 
    ```bash
-   git clone <url-del-repositorio>
-   cd eventzs
-   npm install
-   docker-compose up
-   http://localhost:3000/api-docs
+   git clone https://github.com/JoshuaJson/Eventzs.git
+   ```
    
-
-
-
+2. **instala dependecias:**
+    ```bash
+    npm install
+    ```
+3. **Correrlo en docker:**
+    ```bash
+    docker-compose up
+    ```
 
 
 
