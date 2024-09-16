@@ -11,6 +11,7 @@ router.put("/events/:id", EventController.update);
 router.delete("/events/:id", EventController.delete);
 router.post("/attendees", AttendeeController.register);
 router.get("/attendees", AttendeeController.getAll);
+router.get('/events/:id/details', EventController.getEventDetails);
 
 // Ruta para obtener ubicaciones cercanas basadas en eventos
 router.get('/recommend-nearby/:id', recommendNearbyPlaces);
