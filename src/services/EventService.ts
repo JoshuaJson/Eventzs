@@ -35,5 +35,10 @@ export class EventService {
     const eventRepository = getRepository(Event);
     await eventRepository.delete(id);
   }
+  // get event by ID
+  static async getEventById(id: number): Promise<Event | undefined> {
+    const eventRepository = getRepository(Event);
+    return await eventRepository.findOne({ where: { id } });
+  }
 }
 

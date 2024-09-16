@@ -6,6 +6,7 @@ import { getRepository } from 'typeorm';
 import { Attendee } from '../entities/Attendee';
 import { Event } from '../entities/Event';
 
+
 const router = Router();
 
 // Función para configurar las rutas
