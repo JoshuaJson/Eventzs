@@ -31,4 +31,17 @@ export class EventController {
     return res.status(204).send();
   }
 
+  static async getEventDetails(req: Request, res: Response) {
+    const eventId = parseInt(req.params.id, 10);
+    if (isNaN(eventId)) {
+      return res.status(400).json({ message: "Invalid event ID" });
+    }
+
+    try {
+      const eventDetails = await EventService.getEventDetails(eventId);
+      return res.json(eventDetails);
+    } catch (error) {
+      return res.status(404).json({ message: error.message });
+    }
+  }
 }

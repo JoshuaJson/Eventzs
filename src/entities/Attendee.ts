@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne ,JoinColumn} from "typeorm";
 import { IsEmail, IsNotEmpty } from "class-validator";
 import { Event } from './Event';
 @Entity()
@@ -15,6 +15,7 @@ export class Attendee {
   email!: string;
 
   @ManyToOne(() => Event, (event) => event.id)
+  @JoinColumn({ name: 'eventId' })
   event: Event;
 
   @Column({ type: 'timestamp' })
