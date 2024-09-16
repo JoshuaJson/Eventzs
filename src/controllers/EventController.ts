@@ -14,7 +14,7 @@ export class EventController {
     return res.json(events);
   }
   static async update(req: Request, res: Response) {
-    const eventId = parseInt(req.params.id, 10); // Convertir el ID de string a number
+    const eventId = parseInt(req.params.id, 10); 
     if (isNaN(eventId)) {
       return res.status(400).json({ message: "Invalid event ID" });
     }

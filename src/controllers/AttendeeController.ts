@@ -7,7 +7,7 @@ export class AttendeeController {
       const attendee = await AttendeeService.register(req.body);
       return res.status(201).json(attendee);
     } catch (error) {
-      // Manejar errores de validación
+      
       return res.status(400).json({ errors: error });
     }
   }

@@ -1,5 +1,7 @@
 import MapboxClient from '@mapbox/mapbox-sdk';
 import MapboxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const mapboxToken = process.env.MAPBOX_TOKEN;
 const client = MapboxClient({ accessToken: mapboxToken });
@@ -10,10 +12,10 @@ export async function getNearbyPlaces(latitude: number, longitude: number, radiu
       // Asegúrate de que las coordenadas se pasen como números y en el formato [longitude, latitude]
       const response = await geocoding.reverseGeocode({
         query: [longitude, latitude], // Mapbox espera [longitude, latitude]
-        types: ['poi'], // Asegúrate de que esto sea un array
+        types: ['poi'], 
       }).send();
   
-      // Aquí puedes filtrar los resultados según el radio si es necesario
+
       return response.body.features;
     } catch (error) {
       console.error('Error fetching nearby places:', error);

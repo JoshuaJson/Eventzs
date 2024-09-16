@@ -7,7 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger.json";
 import eventRoutes from './routes/routes';
 import { initializeDatabase } from './typeorm-config';
-import { configureExcelRoutes } from './routes/excel.routes'; // Importa la función para configurar las rutas
+import { configureExcelRoutes } from './routes/excel.routes'; 
 
 dotenv.config();
 
