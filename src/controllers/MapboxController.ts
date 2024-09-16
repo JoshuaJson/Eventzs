@@ -12,13 +12,13 @@ export async function recommendNearbyPlaces(req: Request, res: Response) {
     }
   
     try {
-      const event = await EventService.getEventById(eventId); // Llama al método estático
+      const event = await EventService.getEventById(eventId); 
   
       if (!event) {
         return res.status(404).json({ error: 'Event not found' });
       }
   
-       // Asegúrate de que latitude y longitude sean números
+       
         const latitude = parseFloat(event.latitude.toString()); // Convertir a número
         const longitude = parseFloat(event.longitude.toString()); // Convertir a número
         const radius = parseFloat(req.query.radius as string) || 1000;
