@@ -279,6 +279,103 @@
           }
         }
       }
+    },
+    "/recommend-nearby/{id}": {
+      "get": {
+        "summary": "Obtener lugares cercanos a un evento",
+        "operationId": "getNearbyPlaces",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lugares cercanos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "place_type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "relevance": {
+                        "type": "number"
+                      },
+                      "properties": {
+                        "type": "object",
+                        "properties": {
+                          "foursquare": {
+                            "type": "string"
+                          },
+                          "landmark": {
+                            "type": "boolean"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "maki": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "place_name": {
+                        "type": "string"
+                      },
+                      "center": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "geometry": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Evento no encontrado o lugares cercanos no disponibles"
+          }
+        }
+      }
     }
   },
   "components": {
